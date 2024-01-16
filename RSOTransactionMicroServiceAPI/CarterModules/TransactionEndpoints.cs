@@ -9,9 +9,7 @@ public class TransactionEndpoints : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        //app.Get("/api/transaction", async (req, res) => await res.WriteAsync("Hello from Carter!"));
-
-        var group = app.MapGroup("/transactions/api");
+        var group = app.MapGroup("/transactions/api/");
 
         group.MapGet("/", GetAllTransactions).WithName(nameof(GetAllTransactions)).
             Produces(StatusCodes.Status200OK).
@@ -23,7 +21,7 @@ public class TransactionEndpoints : ICarterModule
             Produces(StatusCodes.Status400BadRequest).
             Produces(StatusCodes.Status401Unauthorized).WithTags("Transactions");
 
-        group.MapGet("user/{id}", GetTransactionsByUserId).WithName(nameof(GetTransactionsByUserId)).
+        group.MapGet("/user/{id}", GetTransactionsByUserId).WithName(nameof(GetTransactionsByUserId)).
             Produces(StatusCodes.Status201Created).
             Produces(StatusCodes.Status400BadRequest).
             Produces(StatusCodes.Status401Unauthorized).WithTags("Transactions");
