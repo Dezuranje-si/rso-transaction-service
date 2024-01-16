@@ -1,0 +1,55 @@
+﻿@page "/transactions/index"
+@model RSOTransactionMicroServiceAPI.Pages.IndexUIModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Transakcije";
+    ViewBag.Header = "Transakcije";
+}
+
+
+<div style="padding: 20pt 70pt 0 70pt; width:60vw;">
+    
+    <h1 style="color: white; margin-bottom: 20pt;">@ViewBag.Header</h1>
+
+    <div style="background-color:rgb(65, 65, 75); border-radius: .6rem; padding:10pt;">
+        <table width="99%" id="transactionsTable" style="color:white; border-spacing: 80px 90px;">
+            <tr>
+                <th>Št. oglasa</th>
+                <th>Št. kupca</th>
+                <th>Št. prodajalca</th>
+                <th>Cena (€)</th>
+                <th>Datum in čas transakcije</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/transactions/api',
+            method: 'GET',
+            success: function (transactions) {
+                console.log(transactions);
+                var transactionsTable = $('#transactionsTable');
+
+                transactions.forEach(function (transaction) {
+                    var transactionRow = `
+                                <tr>
+                                    <td>${transaction.adId}</td>
+                                    <td>${transaction.buyerId}</td>
+                                    <td>${transaction.sellerId}</td>
+                                    <td>${transaction.priceActual}</td>
+                                    <td>${transaction.dateTime}</td>
+                                </tr>
+                            `;
+                    transactionsTable.append(transactionRow);
+                });
+            },
+            error: function () {
+                var errorElement = $('<div>').text('Failed to fetch transactions.');
+                transactionsTable.append(errorElement);
+                }
+            });
+    });
+</script>

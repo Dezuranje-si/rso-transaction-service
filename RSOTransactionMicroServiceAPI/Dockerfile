@@ -21,4 +21,5 @@ RUN dotnet publish "./RSOTransactionMicroServiceAPI.csproj" -c $BUILD_CONFIGURAT
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV ASPNETCORE_ENVIRONMENT Release
 ENTRYPOINT ["dotnet", "RSOTransactionMicroServiceAPI.dll"]

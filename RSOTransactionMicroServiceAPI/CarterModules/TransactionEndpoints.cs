@@ -11,9 +11,9 @@ public class TransactionEndpoints : ICarterModule
     {
         //app.Get("/api/transaction", async (req, res) => await res.WriteAsync("Hello from Carter!"));
 
-        var group = app.MapGroup("/api/transaction/");
+        var group = app.MapGroup("/transactions/api");
 
-        group.MapGet("/all", GetAllTransactions).WithName(nameof(GetAllTransactions)).
+        group.MapGet("/", GetAllTransactions).WithName(nameof(GetAllTransactions)).
             Produces(StatusCodes.Status200OK).
         Produces(StatusCodes.Status400BadRequest).
         Produces(StatusCodes.Status401Unauthorized).WithTags("Transactions");
