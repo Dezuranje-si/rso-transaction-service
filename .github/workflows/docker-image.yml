@@ -22,7 +22,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
-        context: RSOTransactionMicroServiceAPI/
+        context: /
         push: true
         tags: urban98/transaction-service-api:latest
-        file: RSOTransactionMicroServiceAPI\RSOTransactionMicroServiceAPI/Dockerfile
+        file: RSOTransactionMicroServiceAPI/Dockerfile
