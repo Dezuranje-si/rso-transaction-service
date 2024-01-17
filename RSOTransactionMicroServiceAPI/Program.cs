@@ -7,27 +7,15 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 
-// Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowClient", policy =>
-    {
-        policy.WithOrigins(allowedOrigin)
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-    });
+    options.AddPolicy("AllowClient",
+        builder =>
+        {
+            builder.WithOrigins("http://20.73.26.56");
+        });
 });
-
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowClient",
-//        builder =>
-//        {
-//            builder.WithOrigins("http://20.73.26.56");
-//        });
-//});
 
 //Database settings
 builder.Services.AddDbContext<transaction_service_dbContext>(options =>
