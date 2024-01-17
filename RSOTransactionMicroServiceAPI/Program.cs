@@ -5,9 +5,18 @@ using RSOTransactionMicroServiceAPI.Repository;
 using RSOTransactionMicroServiceAPI.Logic;
 using Serilog;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 
 //Database settings
 builder.Services.AddDbContext<transaction_service_dbContext>(options =>
@@ -57,6 +66,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseCors("AllowAllOrigins");
 
 app.MapCarter();
 app.UseOpenApi();
